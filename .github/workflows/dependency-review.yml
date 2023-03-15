@@ -11,9 +11,6 @@ on:
         required: true
         type: boolean
         default: true
-    secrets:
-      token:
-        required: true
 
 jobs:
   public-review:
