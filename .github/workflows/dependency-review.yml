@@ -21,6 +21,7 @@ jobs:
     name: Dependency Review (Open Source)
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/dependency-review-action@v2
         with: 
           config-file: louis-bompart/studious-garbanzo/foo
@@ -30,6 +31,7 @@ jobs:
     name: Dependency Review (Private Distributed)
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/dependency-review-action@v2
         with: 
           config-file: louis-bompart/studious-garbanzo/bar
@@ -39,6 +41,7 @@ jobs:
     name: Dependency Review (Private Undistributed)
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/dependency-review-action@v2
         with: 
           config-file: louis-bompart/studious-garbanzo/baz
