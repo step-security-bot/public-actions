@@ -1,0 +1,45 @@
+name: Coveo Dependency Reviewer
+
+on:
+  workflow_call:
+    inputs:
+      public:
+        required: true
+        type: boolean
+        default: false
+      distributed:
+        required: true
+        type: boolean
+        default: true
+    secrets:
+      token:
+        required: true
+
+jobs:
+  public-review:
+    if: ${{ inputs.public }}
+    name: Dependency Review (Open Source)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/dependency-review-action@v2
+        with: 
+          config-file: louis-bompart/studious-garbanzo/foo
+          #config-file: coveo/dependency-allowed-licenses/public.yml
+  private-undistributed:
+    if: ${{ !inputs.public && inputs.distributed }}
+    name: Dependency Review (Private Distributed)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/dependency-review-action@v2
+        with: 
+          config-file: louis-bompart/studious-garbanzo/bar
+          #config-file: coveo/dependency-allowed-licenses/private-distributed.yml
+  public-distributed:
+    if: ${{ !inputs.public && !inputs.distributed }}
+    name: Dependency Review (Private Undistributed)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/dependency-review-action@v2
+        with: 
+          config-file: louis-bompart/studious-garbanzo/baz
+          #config-file: coveo/dependency-allowed-licenses/private-undistributed.yml
