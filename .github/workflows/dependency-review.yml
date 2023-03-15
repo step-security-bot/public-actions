@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/dependency-review-action@v2
+      - uses: actions/dependency-review-action@v3
         with: 
           config-file: github/louis-bompart/studious-garbanzo/foo
           #config-file: github/coveo/dependency-allowed-licenses/public.yml
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/dependency-review-action@v2
+      - uses: actions/dependency-review-action@v3
         with: 
           config-file: github/louis-bompart/studious-garbanzo/bar
           #config-file: github/coveo/dependency-allowed-licenses/private-distributed.yml
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/dependency-review-action@v2
+      - uses: actions/dependency-review-action@v3
         with: 
           config-file: github/louis-bompart/studious-garbanzo/baz
           #config-file: github/coveo/dependency-allowed-licenses/private-undistributed.yml
