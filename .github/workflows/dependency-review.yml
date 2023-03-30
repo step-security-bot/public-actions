@@ -30,7 +30,7 @@ jobs:
         with:
           comment-summary-in-pr: true
           fail-on-severity: high
-          config-file: ./coveo-dependency-allowed-licenses/public.yml@main
+          config-file: ./coveo-dependency-allowed-licenses/public.yml
   private-undistributed:
     if: ${{ !inputs.public && inputs.distributed }}
     name: Dependency Review (Private Distributed)
@@ -48,7 +48,7 @@ jobs:
         with:
           comment-summary-in-pr: true
           fail-on-severity: high
-          config-file: ./coveo-dependency-allowed-licenses/private-distributed.yml@main
+          config-file: ./coveo-dependency-allowed-licenses/private-distributed.yml
   public-distributed:
     if: ${{ !inputs.public && !inputs.distributed }}
     name: Dependency Review (Private Undistributed)
@@ -66,4 +66,4 @@ jobs:
         with: 
           comment-summary-in-pr: true
           fail-on-severity: high
-          config-file: ./coveo-dependency-allowed-licenses/private-undistributed.yml@main
+          config-file: ./coveo-dependency-allowed-licenses/private-undistributed.yml
