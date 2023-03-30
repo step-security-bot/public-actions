@@ -23,7 +23,7 @@ jobs:
       - name: Checkout licenses
         uses:  actions/checkout@v3
         with:
-          ref: coveo/dependency-allowed-licenses
+          repository: coveo/dependency-allowed-licenses
           path: coveo-dependency-allowed-licenses
       - name: Scan
         uses: actions/dependency-review-action@v3
@@ -41,7 +41,7 @@ jobs:
       - name: Checkout licenses
         uses:  actions/checkout@v3
         with:
-          ref: coveo/dependency-allowed-licenses
+          repository: coveo/dependency-allowed-licenses
           path: coveo-dependency-allowed-licenses
       - name: Scan
         uses: actions/dependency-review-action@v3
@@ -59,7 +59,7 @@ jobs:
       - name: Checkout licenses
         uses:  actions/checkout@v3
         with:
-          ref: coveo/dependency-allowed-licenses
+          repository: coveo/dependency-allowed-licenses
           path: coveo-dependency-allowed-licenses
       - name: Scan
         uses: actions/dependency-review-action@v3
