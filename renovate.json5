@@ -8,6 +8,6 @@
     "group:allNonMajor"
   ],
   "prConcurrentLimit": 3,
-  "prHeader": "DT-5590 <- Put your own jira issue here by setting the `prHeader` value in your renovate config",
+  "prHeader": "DEF-160",
   "rebaseWhen": "auto"
 }
