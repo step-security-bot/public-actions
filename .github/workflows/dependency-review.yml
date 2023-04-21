@@ -25,71 +25,31 @@ jobs:
         with:
           repository: coveo/dependency-allowed-licenses
           path: coveo-dependency-allowed-licenses
+
       - name: Select configuration
         id: select-config
         uses: actions/github-script@v6
+        env:
+          INPUTS: ${{ inputs | toJSON }}
         with:
+          result-encoding: string
           script: |
-            console.log(context)
+            const inputs = JSON.parse(process.env.INPUTS)
+            if (inputs.public) {
+              return 'public.yml'
+            }
+            if (!inputs.public && inputs.distributed) {
+              return 'private-distributed.yml'
+            }
+            if (!inputs.public && !inputs.distributed) {
+              return 'private-undistributed.yml'
+            }
+
+            core.setFailure(`Could not determine configuration for inputs: ${inputs}`)
 
       - name: Scan
         uses: actions/dependency-review-action@f46c48ed6d4f1227fb2d9ea62bf6bcbed315589e # v3
         with:
           comment-summary-in-pr: true
           fail-on-severity: high
-          config-file: ./coveo-dependency-allowed-licenses/public.yml
-
-  # public-review:
-  #   if: ${{ inputs.public }}
-  #   name: Dependency Review (Open Source)
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout scan target
-  #       uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-  #     - name: Checkout licenses
-  #       uses:  actions/checkout@v3
-  #       with:
-  #         repository: coveo/dependency-allowed-licenses
-  #         path: coveo-dependency-allowed-licenses
-  #     - name: Scan
-  #       uses: actions/dependency-review-action@f46c48ed6d4f1227fb2d9ea62bf6bcbed315589e # v3
-  #       with:
-  #         comment-summary-in-pr: true
-  #         fail-on-severity: high
-  #         config-file: ./coveo-dependency-allowed-licenses/public.yml
-  # private-undistributed:
-  #   if: ${{ !inputs.public && !inputs.distributed }}
-  #   name: Dependency Review (Private Undistributed)
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout scan target
-  #       uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-  #     - name: Checkout licenses
-  #       uses:  actions/checkout@v3
-  #       with:
-  #         repository: coveo/dependency-allowed-licenses
-  #         path: coveo-dependency-allowed-licenses
-  #     - name: Scan
-  #       uses: actions/dependency-review-action@f46c48ed6d4f1227fb2d9ea62bf6bcbed315589e # v3
-  #       with:
-  #         comment-summary-in-pr: true
-  #         fail-on-severity: high
-  #         config-file: ./coveo-dependency-allowed-licenses/private-undistributed.yml
-  # private-distributed:
-  #   if: ${{ !inputs.public && inputs.distributed }}
-  #   name: Dependency Review (Private Distributed)
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout scan target
-  #       uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-  #     - name: Checkout licenses
-  #       uses:  actions/checkout@v3
-  #       with:
-  #         repository: coveo/dependency-allowed-licenses
-  #         path: coveo-dependency-allowed-licenses
-  #     - name: Scan
-  #       uses: actions/dependency-review-action@f46c48ed6d4f1227fb2d9ea62bf6bcbed315589e # v3
-  #       with:
-  #         comment-summary-in-pr: true
-  #         fail-on-severity: high
-  #         config-file: ./coveo-dependency-allowed-licenses/private-distributed.yml
+          config-file: ./coveo-dependency-allowed-licenses/${{ steps.select-config.outputs.result }}
