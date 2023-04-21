@@ -30,7 +30,7 @@ jobs:
         id: select-config
         uses: actions/github-script@v6
         env:
-          INPUTS: ${{ inputs | toJSON }}
+          INPUTS: ${{ toJSON(inputs) }}
         with:
           result-encoding: string
           script: |
