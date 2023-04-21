@@ -32,8 +32,8 @@ jobs:
           fail-on-severity: high
           config-file: ./coveo-dependency-allowed-licenses/public.yml
   private-undistributed:
-    if: ${{ !inputs.public && inputs.distributed }}
-    name: Dependency Review (Private Distributed)
+    if: ${{ !inputs.public && !inputs.distributed }}
+    name: Dependency Review (Private Undistributed)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout scan target
@@ -48,10 +48,10 @@ jobs:
         with:
           comment-summary-in-pr: true
           fail-on-severity: high
-          config-file: ./coveo-dependency-allowed-licenses/private-distributed.yml
-  public-distributed:
-    if: ${{ !inputs.public && !inputs.distributed }}
-    name: Dependency Review (Private Undistributed)
+          config-file: ./coveo-dependency-allowed-licenses/private-undistributed.yml
+  private-distributed:
+    if: ${{ !inputs.public && inputs.distributed }}
+    name: Dependency Review (Private Distributed)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout scan target
@@ -66,4 +66,4 @@ jobs:
         with: 
           comment-summary-in-pr: true
           fail-on-severity: high
-          config-file: ./coveo-dependency-allowed-licenses/private-undistributed.yml
+          config-file: ./coveo-dependency-allowed-licenses/private-distributed.yml
