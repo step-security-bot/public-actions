@@ -11,6 +11,11 @@ on:
         required: true
         type: boolean
         default: true
+      comment-summary-in-pr:
+        description: A boolean to determine if the report should be posted as a comment in the PR itself.
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   dependency-review:
@@ -50,6 +55,6 @@ jobs:
       - name: Scan
         uses: actions/dependency-review-action@f46c48ed6d4f1227fb2d9ea62bf6bcbed315589e # v3
         with:
-          comment-summary-in-pr: true
+          comment-summary-in-pr: ${{ inputs.comment-summary-in-pr }}
           fail-on-severity: high
           config-file: ./coveo-dependency-allowed-licenses/${{ steps.select-config.outputs.result }}
