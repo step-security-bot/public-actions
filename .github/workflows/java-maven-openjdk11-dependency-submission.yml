@@ -1,0 +1,36 @@
+name: 'Submit Maven Dependencies Snapshot'
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        required: true
+        type: string
+      directory:
+        description: 'The directory that contains the pom.xml that will be used to generate the dependency graph from'
+        default: '.'
+        required: false
+        type: string
+
+jobs:
+  submit-dependencies:
+    name: Submit dependencies
+
+    runs-on: ${{ fromJson(inputs.runs-on) }}
+
+    container:
+      image: adoptopenjdk/maven-openjdk11:latest
+
+    permissions:
+      actions: read
+      contents: write
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Submit Dependency Snapshot
+        uses: advanced-security/maven-dependency-submission-action@v3
+        with:
+          directory: ${{ inputs.directory }}
