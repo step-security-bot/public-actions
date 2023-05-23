@@ -4,7 +4,8 @@ on:
   workflow_call:
     inputs:
       runs-on:
-        description: 'The type of machine to run the job on. Must be provided as a stringified list (e.g. `runs-on: '["ubuntu-latest","self-hosted"]'`)
+        description: |
+          The type of machine to run the job on. Must be provided as a stringified list (e.g. `runs-on: '["ubuntu-latest","self-hosted"]'`)
         required: true
         type: string
       mvn-arguments:
@@ -27,6 +28,9 @@ jobs:
       security-events: write
 
     steps:
+      # Fix HOME variable as GitHub is overriding it, and it breaks assumptions from maven.
+      - run: echo "HOME=/root" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -34,6 +38,13 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: java
+      - name: Cache maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       - name: Build project
         run: mvn ${{ inputs.mvn-arguments }} clean test-compile
