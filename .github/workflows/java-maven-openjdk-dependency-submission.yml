@@ -14,10 +14,14 @@ on:
         required: false
         type: string
       mvn-version:
+        description: |
+          The Maven version used for the execution. You can specify minor or patch version (3.9 or 3.9.1). Default : 3.9
         required: false
         type: number
         default: 3.9
       jdk-version:
+        description: |
+          The JDK version to use for the build.
         required: true
         type: number
 
@@ -28,7 +32,7 @@ jobs:
     runs-on: ${{ fromJson(inputs.runs-on) }}
 
     container:
-      image: maven:${{ inputs.mvn-version }}-amazoncorretto-${{ inputs.jdk-version }}-debian:latest
+      image: maven:${{ inputs.mvn-version }}-eclipse-temurin-${{ inputs.jdk-version }}
 
     permissions:
       actions: read
