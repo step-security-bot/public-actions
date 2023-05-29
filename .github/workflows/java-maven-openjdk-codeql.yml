@@ -60,7 +60,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build project
-        run: mvn ${{ inputs.mvn-additional-arguments }} --also-make --batch-mode --strict-checksums --update-snapshots -Dmaven.gitcommitid.skip=true -DskipTests clean test-compile
+        run: mvn ${{ inputs.mvn-additional-arguments }} -T1C --also-make --batch-mode --strict-checksums --update-snapshots -Dmaven.gitcommitid.skip=true -DskipTests clean test-compile
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
