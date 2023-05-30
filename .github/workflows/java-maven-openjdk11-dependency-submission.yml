@@ -8,13 +8,11 @@ on:
           The type of machine to run the job on. Must be provided as a stringified list (e.g. `runs-on: '["ubuntu-latest","self-hosted"]'`)
         required: true
         type: string
-        deprecationMessage: This workflow is deprecated in favor of java-maven-openjdk-dependency-submission
       directory:
         description: 'The directory that contains the pom.xml that will be used to generate the dependency graph from'
         default: '.'
         required: false
         type: string
-        deprecationMessage: This workflow is deprecated in favor of java-maven-openjdk-dependency-submission
 
 jobs:
   submit-dependencies:

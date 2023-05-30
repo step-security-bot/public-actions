@@ -8,11 +8,9 @@ on:
           The type of machine to run the job on. Must be provided as a stringified list (e.g. `runs-on: '["ubuntu-latest","self-hosted"]'`)
         required: true
         type: string
-        deprecationMessage: This workflow is deprecated in favor of java-maven-openjdk-codeql
       mvn-arguments:
         required: false
         type: string
-        deprecationMessage: This workflow is deprecated in favor of java-maven-openjdk-codeql
 
 jobs:
   analyze-java:
