@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout scan target
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+        uses: actions/checkout@v3
 
       - name: Checkout licenses
         uses:  actions/checkout@v3
@@ -33,7 +33,7 @@ jobs:
 
       - name: Select configuration
         id: select-config
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6
+        uses: actions/github-script@v6
         env:
           INPUTS: ${{ toJSON(inputs) }}
         with:
