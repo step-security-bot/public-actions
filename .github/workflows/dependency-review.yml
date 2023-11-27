@@ -33,7 +33,7 @@ jobs:
 
       - name: Select configuration
         id: select-config
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           INPUTS: ${{ toJSON(inputs) }}
         with:
