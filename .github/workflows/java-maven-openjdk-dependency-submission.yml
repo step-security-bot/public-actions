@@ -55,3 +55,4 @@ jobs:
         uses: advanced-security/maven-dependency-submission-action@v3
         with:
           directory: ${{ inputs.directory }}
+          maven-args: -Dscopes=compile,provided,runtime,system
