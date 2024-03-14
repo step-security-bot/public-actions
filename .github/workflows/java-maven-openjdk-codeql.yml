@@ -25,6 +25,9 @@ on:
         required: true
         type: number
 
+permissions:
+  contents: read
+
 jobs:
   analyze-java:
     name: Analyze Java
@@ -44,15 +47,15 @@ jobs:
       - run: echo "HOME=/root" >> $GITHUB_ENV
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@3ab4101902695724f9365a384f86c1074d94e18c # v3.24.7
         with:
           languages: java
 
       - name: Cache maven dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319 # v4.0.1
         with:
           path: ~/.m2
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -63,6 +66,6 @@ jobs:
         run: mvn ${{ inputs.mvn-additional-arguments }} -T1C --also-make --batch-mode --strict-checksums --update-snapshots -Dmaven.gitcommitid.skip=true -DskipTests clean test-compile
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@3ab4101902695724f9365a384f86c1074d94e18c # v3.24.7
         with:
           category: "/language:java"
