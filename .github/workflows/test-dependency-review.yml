@@ -15,6 +15,9 @@ jobs:
         comment-summary-in-pr: [true, false]
       fail-fast: false
 
+    permissions:
+      pull-requests: write
+
     uses: ./.github/workflows/dependency-review.yml
     with:
       public: ${{ matrix.public }}
