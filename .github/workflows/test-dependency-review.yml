@@ -14,7 +14,7 @@ jobs:
       matrix:
         public: [true, false]
         distributed: [true, false]
-        comment-summary-in-pr: [true, false]
+        comment-summary-in-pr: ['always', 'on-failure', 'never']
       fail-fast: false
 
     uses: ./.github/workflows/dependency-review.yml
