@@ -4,6 +4,9 @@ on: pull_request
 
 jobs:
   test:
+    permissions:
+      pull-requests: write
+
     strategy:
       matrix:
         public: [true, false]
