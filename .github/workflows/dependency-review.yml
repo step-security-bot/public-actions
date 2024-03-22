@@ -17,6 +17,9 @@ on:
         default: on-failure
         type: string
 
+permissions:
+  pull-requests: write
+
 jobs:
   dependency-review:
     name: Dependency Review
