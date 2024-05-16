@@ -26,6 +26,11 @@ on:
         required: false
         default: ${{ github.event.pull_request.head.sha }}
         type: string
+      fail-on-severity:
+        description: Defines the threshold for the level of severity. The action will fail on any pull requests that introduce vulnerabilities of the specified severity level or higher.
+        required: false
+        default: high
+        type: string
 
 jobs:
   dependency-review:
@@ -66,7 +71,7 @@ jobs:
         uses: actions/dependency-review-action@v4
         with:
           comment-summary-in-pr: ${{ inputs.comment-summary-in-pr }}
-          fail-on-severity: high
+          fail-on-severity: ${{ inputs.fail-on-severity }}
           config-file: ./coveo-dependency-allowed-licenses/${{ steps.select-config.outputs.result }}
           base-ref: ${{ inputs.base-ref }}
           head-ref: ${{ inputs.head-ref }}
