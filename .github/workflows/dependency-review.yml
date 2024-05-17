@@ -31,11 +31,16 @@ on:
         required: false
         default: high
         type: string
+      runs-on:
+        description: |
+          The type of machine to run the job on. Must be provided as a stringified list (e.g. `runs-on: '["ubuntu-latest","self-hosted"]'`)
+        default: '["coveo", "arm64" , "linux", "eks"]'
+        type: string
 
 jobs:
   dependency-review:
     name: Dependency Review
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJson(inputs.runs-on) }}
     steps:
       - name: Checkout scan target
         uses: actions/checkout@v4
