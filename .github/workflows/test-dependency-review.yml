@@ -20,3 +20,4 @@ jobs:
       public: ${{ matrix.public }}
       distributed: ${{ matrix.distributed }}
       comment-summary-in-pr: ${{ matrix.comment-summary-in-pr }}
+      runs-on: '["ubuntu-latest"]'
