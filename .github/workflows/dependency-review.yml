@@ -33,9 +33,8 @@ on:
         type: string
       runs-on:
         description: |
-          The type of machine to run the job on. Must be provided as a stringified list (e.g. `runs-on: '["ubuntu-latest","self-hosted"]'`)
-        default: '["ubuntu-latest"]'
-#        default: '["coveo", "arm64" , "linux", "eks"]'  # restore once public repos specify ubuntu-latest
+          The type of machine to run the job on. Must be provided as a stringified list (e.g. public repos should specify `runs-on: '["ubuntu-latest"]'`)
+        default: '["coveo", "arm64" , "linux", "eks"]'
         type: string
 
 jobs:
