@@ -36,6 +36,16 @@ on:
           The type of machine to run the job on. Must be provided as a stringified list (e.g. public repos should specify `runs-on: '["ubuntu-latest"]'`)
         default: '["coveo", "arm64" , "linux", "eks"]'
         type: string
+      retry-on-snapshot-warnings:
+        description: Whether to retry on snapshot warnings (to be used for projects where a dependency submission Action is used)
+        required: false
+        type: boolean
+        default: false
+      retry-on-snapshot-warnings-timeout:
+        description: Number of seconds to wait before stopping snapshot retries.
+        required: false
+        type: number
+        default: 120
 
 jobs:
   dependency-review:
@@ -80,3 +90,5 @@ jobs:
           config-file: ./coveo-dependency-allowed-licenses/${{ steps.select-config.outputs.result }}
           base-ref: ${{ inputs.base-ref }}
           head-ref: ${{ inputs.head-ref }}
+          retry-on-snapshot-warnings: ${{ inputs.retry-on-snapshot-warnings }}
+          retry-on-snapshot-warnings-timeout: ${{ inputs.retry-on-snapshot-warnings-timeout }}
