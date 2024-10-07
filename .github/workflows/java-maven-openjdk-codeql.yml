@@ -40,6 +40,11 @@ jobs:
       security-events: write
 
     steps:
+      # Allow calling Git on a working copy owned by another user than the current one.
+      # see: https://github.blog/2022-04-12-git-security-vulnerability-announced/
+      - name: Git directory permission fix
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
       # Fix HOME variable as GitHub is overriding it, and it breaks assumptions from maven.
       - run: echo "HOME=/root" >> $GITHUB_ENV
 
