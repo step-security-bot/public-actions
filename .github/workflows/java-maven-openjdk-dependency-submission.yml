@@ -22,7 +22,8 @@ on:
       jdk-version:
         description: |
           The JDK version to use for the build.
-        required: true
+        default: 21
+        required: false
         type: number
       mvn-additional-arguments:
         description: |
@@ -43,9 +44,7 @@ jobs:
       image: maven:${{ inputs.mvn-version }}-eclipse-temurin-${{ inputs.jdk-version }}
 
     permissions:
-      actions: read
       contents: write
-      security-events: write
 
     steps:
       - name: Checkout repository
